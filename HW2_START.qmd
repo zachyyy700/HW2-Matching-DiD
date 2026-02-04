@@ -166,11 +166,11 @@ match_data |>
 
 **2B.Q1** Summarize the table output: Which covariates look balanced/imbalanced?
 
-*Response:* Home value, university degree, and median income look pretty balanced, the last covaraite, population density looks the least balanced.
+*Response:* Home value, university degree, and median income look pretty balanced, the last covariate, population density looks the least balanced.
 
 **2B.Q2** Describe in your own words why these covariates might be expected to confound the treatment estimate: 
 
-*Response (2-4 sentences):* Wealthy, more educated and dense precincts may vote differently, by balancing variables like home value, college degree, and median income, the author can balance pre-exisiting differences that can affect the treatment effect.
+*Response (2-4 sentences):* Wealthy, more educated precincts may vote differently, by balancing variables like home value, college degree, and median income, the author can balance pre-exisiting differences that can affect the treatment effect. Additionally, population density could confound the treatment estimate as rural and urban precincts could have different voting patterns regardless of turbines.
 
 ------------------------------------------------------------------------
 
@@ -449,7 +449,7 @@ ggplot(aes(year, mean, color = status, group = status)) +
 
 **3B.Q1:** Write a short paragraph assessing the parallel trends assumption for each outcome.
 
-*Response (4-6 sentences):* The parallel trends assumption seems to hold and be satisfied in this plot when comparing outcomes.
+*Response (4-6 sentences):* The parallel trends assumption seems to hold and be satisfied in this plot for both proposed and operational turbine outcomes. The pre-treatment period is before 2009, before the energy policy for more turbines is passed. In the proposed turbine group, vote shares and slopes are very similar, essentially overlapping, while post-treatment, treated precincts experienced an accelerated decline. In the operational turbine group, there is similar behavior except the treated precincts start out higher initially, less overlap pre-treatment. The pre-treatment slopes are similar though so I think we can call this satisfied.
 
 ------------------------------------------------------------------------
 
@@ -513,7 +513,7 @@ summ(model1_ff, model.fit = FALSE, digits = 3)
 
 **3C.Q1:** Intuition check: Is the *signal-to-noise* ratio for the treatment estimate greater than *2-to-1*?
 
-*Response:* The treatment estimate is -0.06 while its standard error is 0.03.
+*Response:* The treatment estimate is -0.057 while its standard error is 0.031. It's not greater than 2-to-1.
 
 > HINT: Add the argument `digits = 3` to the `summ()` function above
 
@@ -523,15 +523,15 @@ summ(model1_ff, model.fit = FALSE, digits = 3)
 summ(model1_ff, model.fit = FALSE, digits = 3, robust = TRUE)
 ```
 
-*Response:* The standard error increased.
+*Response:* The standard error increased. This is likely because homoscedasticity is not the reality in this data and the variance of error is not constant across all observations.
 
 **3C.Q3:** Compare results of the model above to the findings from the fixed effects analysis in the Stokes (2015) study. Why might the results be similar or different? 
 
-*Response:* _________________________
+*Response:* The treatment coefficient is in the same range as the study about -0.05. It may be different due to our random sampling of panel data.
 
 **3C.Q4:** In your own words, explain why it is advantageous from a causal inference perspective to include year and precinct fixed effects. Explain how between-level and within-level variance is relevant to the problem of omitted variable bias (OVB). 
 
-*Response (2-4 sentences):* 
+*Response (2-4 sentences):* Including precinct and year addresses between-level and within-level variance respectively. Precinct fixed effects controls for differences between precincts like political culture / demographics. Year fixed effects controls for temporal trends that affect all precincts similarly.
 
 ------------------------------------------------------------------------
 
@@ -550,7 +550,7 @@ summary(model2_ff, cluster = ~precinct_id)
 
 In panel data settings, why is clustering by precinct important (i.e., `cluster = ~precinct_id`) ?”
 
-*Response (4-6 sentences):* _________________________
+*Response (4-6 sentences):* The main issue is that each precinct appears three times in the data, once for each year. Therefore, observations from the same precinct are correlated and not independent. Clustering adjusts the standard errors to account for the within precinct level, and treat the precincts as the unique 6000 instead of 18000+ observations.
 
 ------------------------------------------------------------------------
 
@@ -566,11 +566,11 @@ summary(model3_ff, cluster = ~precinct_id)
 
 **3E.Q1:** Interpret the `model3_ff` results as clearly and **concisely** as you can.
 
-*Response:* _________________________
+*Response:* Precincts with operational turbines experienced a 7.9% decline in Liberal Party vote share compared to precincts without operational turbines. This effect is highly significant, with a signal to noise ratio above the 2-to-1 ratio for confidence. 
 
 **3E.Q2:** Why do you think the effect of proposed wind turbines is different from operational wind turbines. Develop your own theory about why incumbent vote share is affected in this way. Use the Stokes (2015) study to inform your response as needed. 
 
-*Response:* _________________________
+*Response:* It is likely different due to the eye-sore part of wind turbines. Proposed turbines are associated with Liberal vote decline but not as much as running, operational turbines. This goes along with the "Not in my backyard" theory that the author mentions, suggesting that opertional turbines intensify disapproval.
 
 
 ------------------------------------------------------------------------
