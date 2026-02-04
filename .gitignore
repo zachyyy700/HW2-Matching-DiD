@@ -1,3 +1,6 @@
+# Render artifacts
+*_files/
+
 .Rproj.user
 .Rhistory
 .RData
